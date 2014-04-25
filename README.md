@@ -5,6 +5,7 @@ Twitter Voting Machine Display
 
 See working in Vine : https://vine.co/v/MvBWuM9n3Ij
 
+![](presentation/IMG_20140425_184434.jpg?raw=true)
 
 
 This project is based on @lfcipriani Tutorial using Ruby and Twitter to get atendees feelings about presentations in QCon São Paulo 2014. I recreated the script to get atendee's votes and build a physical interface (using Arduino and NeoPixel led strip) to show the results.
