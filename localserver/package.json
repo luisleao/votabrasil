@@ -1,0 +1,21 @@
+{
+  "name": "votabrasil",
+  "version": "0.0.1",
+  "description": "Contador de votos de palestras via Twitter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "twitter",
+    "pool",
+    "vote"
+  ],
+  "author": "Luis Leao <luis.leao@gmail.com>",
+  "license": "Apache v2",
+  "dependencies": {
+    "ntwitter": "^0.5.0",
+    "serialport": "^1.4.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+	
+	"serialPort": "/dev/tty.usbmodem1421",
+
+	"twitter": {
+		"consumer_key": "[YOUR_CONSUMER_KEY]",
+		"consumer_secret": "[YOUR_CONSUMER_SECRET]",
+		"access_token_key": "[USER_ACCESS_TOKEN]",
+		"access_token_secret": "[USER_ACCESS_TOKEN_SECRET]"
+  	},
+
+	
+	"filter": ["#forumbr", "#3YearsOfBeAlright", "#Cite7BoasMusicas", "#HappyBirthdayMichaelBand", "#NashNewVideo", "#MeSegueSigoDeVoltaComOHeyBrother"],
+
+	"keywords": {
+		"green": ["amarelo", "forumbr", "nashnewvideo"],
+		"yellow": ["verde", "wearereadyforthewwat", "cite7boasmusicas", "meseguesigodevoltacomoheybrother"],
+		"red": ["vermelho", "happybirthdaymichaelband", "3yearsofbealright"]
+	}	
+}
