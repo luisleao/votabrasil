@@ -3,7 +3,7 @@ votabrasil
 
 Twitter Voting Machine Display
 
-[vine url="https://vine.co/v/MvBWuM9n3Ij"]
+See working in Vine : https://vine.co/v/MvBWuM9n3Ij
 
 
 
