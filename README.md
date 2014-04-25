@@ -3,6 +3,9 @@ votabrasil
 
 Twitter Voting Machine Display
 
+[vine url="https://vine.co/v/MvBWuM9n3Ij"]
+
+
 
 This project is based on @lfcipriani Tutorial using Ruby and Twitter to get atendees feelings about presentations in QCon São Paulo 2014. I recreated the script to get atendee's votes and build a physical interface (using Arduino and NeoPixel led strip) to show the results.
 
