@@ -1,7 +1,7 @@
 votabrasil
 ==========
 
-Twitter Voting Machine display
+Twitter Voting Machine Display
 
 
 
