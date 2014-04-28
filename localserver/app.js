@@ -20,6 +20,45 @@ var twit = new twitter(config.twitter);
 
 console.log("OK");
 
+/*
+
+
+	"filter": ["#forumbr", "#SurveyNoters", "#GirlsFamousLine", "#NoongBataPaAko"],
+
+	"keywords": {
+		"green": ["amarelo", "surveynoters"],
+		"yellow": ["verde", "girlsfamousline"],
+		"red": ["vermelho", "noongbatapaako"]
+	}	
+
+
+
+
+
+	"filter": ["#forumbr"],
+
+	"keywords": {
+		"green": ["verde", "green"],
+		"yellow": ["amarelo", "yellow"],
+		"red": ["vermelho", "red"]
+	}	
+
+
+
+
+	"filter": ["#forumbr"],
+
+	"keywords": {
+		"green": ["amarelo", "notadez"],
+		"yellow": ["verde", "ajuda"],
+		"red": ["vermelho", "oops"]
+	}	
+
+
+
+
+*/
+
 
 
 var user_votes = {};
@@ -54,7 +93,7 @@ var votes_by_color = {
 
 
 
-var SerialPort = require("serialport").SerialPort
+var SerialPort = require("serialport").SerialPort;
 var serialPort = new SerialPort(config.serialPort, {
   baudrate: 9600
 });
@@ -96,6 +135,7 @@ var get_variation = function(current, last) {
 }
 
 
+var last_resume = "";
 
 var recalculate_percents = function() {
 	var resume = "";
@@ -110,17 +150,12 @@ var recalculate_percents = function() {
 
 	serialPort.write("\n");
 
+	if (true || resume != last_resume) {
+		//console.log(votes_by_color.total + ": \t" + resume);
+		last_resume = resume;
+	}
 
 
-	//console.log();
-	//console.log();
-	console.log(votes_by_color.total + ": \t" + resume);
-	//console.log();
-	//console.log();
-	//TODO: relcalcular percentuais e enviar para arduino;
-
-	//user_votes;
-	//votes_by_color
 
 }
 
@@ -181,125 +216,53 @@ var compute_vote = function(tweet) {
 }
 
 
-twit.stream("statuses/filter", { "track": config.filter.join(", ") },
 
-	function(stream) {
-
-		stream.on('data', function(tweet) {
-
-			if (has_vote(tweet)) {
-				return compute_vote(tweet);
-
-			} else {
-
-				console.log(tweet.user.id);
-				console.log(tweet.user.screen_name);
-				console.log(tweet.retweeted_status != null); //eh um RT de algum outro user (contar sim)
-				console.log(tweet.entities.hashtags);
-				console.log();
-
-			}
-
-/*
-			console.log("tweet", tweet);
-
-			console.log(tweet.user.id);
-			console.log(tweet.user.screen_name);
-			console.log(tweet.retweeted_status != null); //eh um RT de algum outro user (contar sim)
-			console.log(tweet.entities.hashtags);
-			console.log("");
-			console.log("");
-			console.log("");
-			console.log("");
-			console.log("");
-			console.log("");
-			*/
-
-		});
+var get_stream = function() {
 
 
-		stream.on('end', function (response) {
-			// Handle a disconnection
-			console.log("END");
-		});
+	twit.stream("statuses/filter", { "track": config.filter.join(", ") },
 
-		stream.on('destroy', function (response) {
-			// Handle a 'silent' disconnection from Twitter, no end/error event fired
-			console.log("DESTROY");
-		});
+		function(stream) {
 
-	});
+			stream.on('data', function(tweet) {
+				//console.log("new tweet");
 
+				if (has_vote(tweet)) {
+					console.log(tweet.user.screen_name + ": " + tweet.text);
+					console.log("********************************");
 
+					return compute_vote(tweet);
 
-
-
-
-
-/*
-
-
-
-twit.stream(
-	'user',
-	{ with: "user" },
-	function(stream) {
-
-		stream.on('data', function(tweet) {
-
-
-
-			if (tweet.event && tweet.event === "follow" && tweet.source.screen_name != "luisleao") {
-				new_follower(tweet.source);
-
-			} else if (tweet.friends) {
-				// chamado pelo
-				console.log("Recebi amigos ", tweet.friends.length);
-
-			} else {
-				// TWEETS (filtro MENTION)
-				// > user.screen_name!=="luisleao"
-				// > ignorar se tiver retweeted_status
-				// > in_reply_to_screen_name == null
-				// > entities.user_mentions[n].screen_name == "luisleao"
-
-				var me_mencionou = mention_me(tweet);
-				var valida = tweet.user.screen_name!=="luisleao" && !tweet.retweeted_status && !tweet.in_reply_to_screen_name && me_mencionou;
-
-				//console.log("mencionou? ", me_mencionou, " ", valida);
-				//console.log("NOT luisleao ", tweet.user.screen_name!=="luisleao", tweet.user.screen_name);
-				//console.log("retweeted_status ", !tweet.retweeted_status);
-				//console.log("retweeted_status ", !tweet.in_reply_to_screen_name);
-
-
-				if (valida) {
-
-					new_mention(tweet);
 				} else {
-					//console.log(tweet);
+
+					//console.log(tweet.user.id);
+					//console.log(tweet.user.screen_name + ": " + tweet.text);
+					//console.log(tweet.retweeted_status != null); //eh um RT de algum outro user (contar sim)
+					//console.log(tweet.entities.hashtags);
+					//console.log();
+
 				}
-			}
 
-			// } else {
-			// 	console.log(tweet);
-			// }
+
+			});
+
+
+			stream.on('end', function (response) {
+				// Handle a disconnection
+				console.log("END");
+				get_stream();
+			});
+
+			stream.on('destroy', function (response) {
+				// Handle a 'silent' disconnection from Twitter, no end/error event fired
+				console.log("DESTROY");
+			});
 
 		});
 
-		stream.on('end', function (response) {
-			// Handle a disconnection
-			console.log("END");
-		});
+}
 
-		stream.on('destroy', function (response) {
-		// Handle a 'silent' disconnection from Twitter, no end/error event fired
-			console.log("DESTROY");
-		});
-
-	}
-);
-
-*/
+get_stream();
 
 
 

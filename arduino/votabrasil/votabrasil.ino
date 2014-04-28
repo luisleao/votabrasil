@@ -10,7 +10,7 @@ boolean stringComplete = false;  // whether the string is complete
 #include <Adafruit_NeoPixel.h>
 
 #define PIN 6
-#define TOTAL_PIXELS 60 //46 ou 60
+#define TOTAL_PIXELS 46 //46 ou 60
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(TOTAL_PIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
