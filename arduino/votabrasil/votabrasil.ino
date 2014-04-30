@@ -28,11 +28,10 @@ void setup() {
 
   inputString.reserve(200);
   
-  
-  
 }
 
 void loop() {
+  
   
   if (stringComplete) {
     //Serial.print(inputString); 

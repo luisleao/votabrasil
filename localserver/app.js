@@ -229,6 +229,7 @@ var get_stream = function() {
 
 				if (has_vote(tweet)) {
 					console.log(tweet.user.screen_name + ": " + tweet.text);
+					console.log(tweet.text);
 					console.log("********************************");
 
 					return compute_vote(tweet);
